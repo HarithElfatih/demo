@@ -1,0 +1,23 @@
+<odoo>
+  <data>
+  <record id="equipment.category.form.extension" model="ir.ui.view">
+        <field name="name">equipment.category.form.extension</field>
+        <field name="model"></field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_category_view_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+          
+          <field name = "message_partner_ids"  position="after">
+          <field name = "reigon_no"/>
+          <field name = "reference_no"/>
+          <field name = "Model_no"/>
+          <field name = "serial_no"/>
+          <field name = "no_of_working_hours"/>
+          <field name = "well_no"/>
+
+        </field>
+    </record>
+
+    <menuitem id="menu_maintenance_cat" name="Equipments" parent="menu_maintenance_configuration" action="hr_equipment_category_action" sequence="2"/>
+  </data>
+</odoo>
