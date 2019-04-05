@@ -1,23 +1,76 @@
 <odoo>
   <data>
-  <record id="equipment.category.form.extension" model="ir.ui.view">
-        <field name="name">equipment.category.form.extension</field>
-        <field name="model"></field>
+        <!-- the next code to add missing fields in Equipment model -->
+  <record id="equipment_category_form_extension" model="ir.ui.view">
+        <field name="name">equipment_category_form_extension</field>
+        <field name="model">maintenance.equipment.category</field>
         <field name="inherit_id" ref="maintenance.hr_equipment_category_view_form" />
         <field name="type">form</field>
         <field name="arch" type="xml">
           
-          <field name = "message_partner_ids"  position="after">
+          <field name = "note"  position="before">
           <field name = "reigon_no"/>
           <field name = "reference_no"/>
           <field name = "Model_no"/>
           <field name = "serial_no"/>
           <field name = "no_of_working_hours"/>
           <field name = "well_no"/>
-
+          <field name = "Equipment_location"/>
+          </field>
+          </field>
+          </record>
+        
+        <!-- company location model view -->
+    <record id="company_location_form" model="ir.ui.view">
+        <field name="name">company.location.form</field>
+        <field name="model">company.locations</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <field name="location_name"/>
         </field>
+        </record>
+   
+    <record id="company_location_form_action" model="ir.actions.act_window">
+    <field name="name">company.location.form.action</field>
+    <field name="res_model">company.locations</field>
+    <field name="view_mode">form</field>
     </record>
 
+    <!-- change button from Equipemts to parts -->
+    <record id="hr_equipment_category_view_form_extended" model="ir.ui.view">
+    <field name="name">equipment.category.form.extend</field>
+    <field name="model">maintenance.equipment.category</field>
+    <field name="inherit_id" ref="maintenance.hr_equipment_category_view_form"/>
+    <field name="arch" type="xml">
+    <form string="Equipments">
+    <sheet>
+    <div class="oe_button_box" name="button_box">
+    <button name="%(hr_equipment_request_action)" class="oe_stat_button" icon="fa-laptop" type="action">
+    <field string="Maintenance Request" name="maintain_equipment" widget="statinfo"/>
+        </button>
+    <button name="947" class="oe_stat_button" icon="fa-laptop" type="action">
+    <field string="Parts" name="equipment_count" widget="statinfo"/>
+            </button>
+           </div>
+         </sheet>
+       </form>
+     </field>
+    </record>
+    <!-- add spare part field t maintenance request view -->
+    <record id="maintenance.hr_equipment_request_view_form_extended" model="ir.ui.view">
+    <field name="name">Maintenance_request_form.extend</field>
+    <field name="model">maintenance.request</field>
+    <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+    <field name="arch" type="xml">
+    <field name="maintenance_spare_parts" position="after" >
+    <field name = "maintenance_type"></field>
+    </field>
+    </field>
+    </record>
+
+      <!-- the next line to change menuitem from Equipment category to Equipment -->
+    <menuitem id="menu_maintenance_operators" name="Maintenance operators" parent="menu_maintenance_configuration" action="maintenance_team_action_settings" groups="group_equipment_manager" sequence="1"/>
     <menuitem id="menu_maintenance_cat" name="Equipments" parent="menu_maintenance_configuration" action="hr_equipment_category_action" sequence="2"/>
+    <menuitem id="comapany_location_menuitem" name="Company locations" parent="menu_maintenance_configuration" action="company_location_form_action" sequence="5"/>
   </data>
 </odoo>
